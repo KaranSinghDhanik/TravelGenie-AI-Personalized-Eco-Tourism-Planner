@@ -1,16 +1,44 @@
+import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
-const navLinks = ['Home', 'About', 'Dashboard', 'Login'];
+const navLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'About', path: '/about' },
+  { label: 'Dashboard', path: '/dashboard' },
+  { label: 'Login', path: '/login' },
+];
+
+function navLinkClass({ isActive }) {
+  return `text-sm font-medium transition-colors ${
+    isActive
+      ? 'text-emerald-700 font-semibold'
+      : 'text-gray-700 hover:text-emerald-700'
+  }`;
+}
+
+function mobileNavLinkClass({ isActive }) {
+  return `block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+    isActive
+      ? 'bg-emerald-50 text-emerald-700 font-semibold'
+      : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-700'
+  }`;
+}
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-emerald-100 bg-white/95 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="#" className="text-lg font-bold tracking-tight text-emerald-800 sm:text-xl">
+        <Link
+          to="/"
+          className="text-lg font-bold tracking-tight text-emerald-800 sm:text-xl"
+          onClick={closeMenu}
+        >
           TravelGenie AI
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -45,14 +73,11 @@ function Navbar() {
         </button>
 
         <ul className="hidden items-center gap-6 md:flex">
-          {navLinks.map((link) => (
-            <li key={link}>
-              <a
-                href="#"
-                className="text-sm font-medium text-gray-700 transition-colors hover:text-emerald-700"
-              >
-                {link}
-              </a>
+          {navLinks.map(({ label, path }) => (
+            <li key={path}>
+              <NavLink to={path} className={navLinkClass} end={path === '/'}>
+                {label}
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -60,15 +85,16 @@ function Navbar() {
 
       {isOpen && (
         <ul className="border-t border-emerald-100 px-4 py-3 md:hidden">
-          {navLinks.map((link) => (
-            <li key={link}>
-              <a
-                href="#"
-                className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
-                onClick={() => setIsOpen(false)}
+          {navLinks.map(({ label, path }) => (
+            <li key={path}>
+              <NavLink
+                to={path}
+                className={mobileNavLinkClass}
+                end={path === '/'}
+                onClick={closeMenu}
               >
-                {link}
-              </a>
+                {label}
+              </NavLink>
             </li>
           ))}
         </ul>
