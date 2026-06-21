@@ -1,20 +1,47 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+const THEME_STORAGE_KEY = 'theme';
+
 const ThemeContext = createContext(null);
 
+/**
+ * Reads the persisted theme from localStorage.
+ *
+ * @returns {'light' | 'dark'} The stored theme or 'light' as default.
+ */
+function getStoredTheme() {
+  if (typeof window === 'undefined') return 'light';
+
+  const stored = localStorage.getItem(THEME_STORAGE_KEY);
+  if (stored === 'light' || stored === 'dark') return stored;
+
+  return 'light';
+}
+
+/**
+ * Applies the theme class and data attribute to the html root element.
+ *
+ * @param {'light' | 'dark'} theme - Theme to apply.
+ */
+function applyThemeToRoot(theme) {
+  const root = document.documentElement;
+  root.classList.toggle('dark', theme === 'dark');
+  root.setAttribute('data-theme', theme);
+}
+
+/**
+ * Provides theme state and toggle functionality to the application.
+ *
+ * @param {Object} props - Component props.
+ * @param {import('react').ReactNode} props.children - Child components.
+ * @returns {import('react').JSX.Element}
+ */
 function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme');
-      if (stored === 'light' || stored === 'dark') return stored;
-    }
-    return 'light';
-  });
+  const [theme, setTheme] = useState(getStoredTheme);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
+    applyThemeToRoot(theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = () => {
@@ -28,6 +55,11 @@ function ThemeProvider({ children }) {
   );
 }
 
+/**
+ * Hook to access the current theme and toggle function.
+ *
+ * @returns {{ theme: 'light' | 'dark', toggleTheme: () => void }}
+ */
 function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {

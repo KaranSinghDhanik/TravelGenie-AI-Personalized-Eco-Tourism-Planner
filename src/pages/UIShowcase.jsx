@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import PageLayout from '../components/PageLayout.jsx';
-import { Button, Input } from '../components/ui/index.js';
+import {
+  Button,
+  Input,
+  Modal,
+  Toast,
+  Loader,
+  showSuccess,
+  showError,
+  showInfo,
+} from '../components/ui/index.js';
 import ThemeToggle from '../components/ui/ThemeToggle.jsx';
 
 function ShowcaseSection({ title, children }) {
@@ -17,9 +26,12 @@ function ShowcaseSection({ title, children }) {
 function UIShowcase() {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('invalid@');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <PageLayout>
+      <Toast />
+
       <div className="mx-auto w-full max-w-4xl min-w-0 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -27,8 +39,8 @@ function UIShowcase() {
               UI Component Showcase
             </h1>
             <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
-              Preview reusable Button and Input components from the TravelGenie
-              AI design system.
+              Preview reusable UI components from the TravelGenie AI design
+              system.
             </p>
           </div>
           <ThemeToggle />
@@ -76,6 +88,80 @@ function UIShowcase() {
                 onChange={(e) => setErrorEmail(e.target.value)}
                 error="Please enter a valid email address."
               />
+            </div>
+          </ShowcaseSection>
+
+          <ShowcaseSection title="Modal Demo">
+            <div className="flex flex-col gap-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Opens an accessible modal with Escape and overlay close support.
+              </p>
+              <div>
+                <Button onClick={() => setIsModalOpen(true)}>
+                  Open Modal
+                </Button>
+              </div>
+            </div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              title="Eco-Trip Confirmation"
+            >
+              <p className="mb-6">
+                Your personalized eco-friendly itinerary for Kerala is ready.
+                Would you like to review the sustainable travel options?
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button onClick={() => setIsModalOpen(false)}>
+                  Confirm
+                </Button>
+                <Button variant="outline" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </Modal>
+          </ShowcaseSection>
+
+          <ShowcaseSection title="Toast Demo">
+            <div className="flex flex-wrap gap-4">
+              <Button onClick={() => showSuccess('Itinerary saved successfully!')}>
+                Success Toast
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => showError('Unable to fetch destination data.')}
+              >
+                Error Toast
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => showInfo('Tip: Choose train travel to reduce your carbon footprint.')}
+              >
+                Info Toast
+              </Button>
+            </div>
+          </ShowcaseSection>
+
+          <ShowcaseSection title="Loader Demo">
+            <div className="space-y-8">
+              <div>
+                <h3 className="mb-4 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Spinner Loader
+                </h3>
+                <div className="flex flex-wrap items-center gap-8">
+                  <Loader variant="spinner" size="sm" />
+                  <Loader variant="spinner" size="md" />
+                  <Loader variant="spinner" size="lg" />
+                </div>
+              </div>
+              <div>
+                <h3 className="mb-4 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Skeleton Card Loader
+                </h3>
+                <div className="max-w-sm">
+                  <Loader variant="skeleton" lines={3} />
+                </div>
+              </div>
             </div>
           </ShowcaseSection>
         </div>
