@@ -60,7 +60,7 @@ function Toast() {
       toastOptions={{
         duration: 4000,
         className:
-          '!rounded-xl !border !border-gray-200 !bg-white !text-gray-900 !shadow-lg dark:!border-gray-700 dark:!bg-gray-800 dark:!text-gray-100',
+          '!rounded-xl !border !border-gray-200 !bg-white !text-gray-900 !shadow-lg dark:!border-gray-700 dark:!bg-gray-900 dark:!text-white',
         success: {
           iconTheme: {
             primary: '#059669',

@@ -81,12 +81,12 @@ function Modal({ isOpen, onClose, title, children }) {
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="relative z-10 w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-6 shadow-xl outline-none dark:border-gray-700 dark:bg-gray-800"
+        className="relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-gray-200 bg-white p-6 shadow-xl outline-none dark:border-gray-700 dark:bg-gray-900 sm:p-8"
       >
         <div className="mb-4 flex items-start justify-between gap-4">
           <h2
             id={titleId}
-            className="text-xl font-semibold text-gray-900 dark:text-gray-100"
+            className="text-xl font-semibold text-gray-900 dark:text-white"
           >
             {title}
           </h2>

@@ -44,7 +44,7 @@ function Input({
         onChange={onChange}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={error ? `${inputId}-error` : undefined}
-        className={`w-full rounded-xl border bg-white px-4 py-2.5 text-base text-gray-900 placeholder-gray-400 transition-colors focus:outline-none focus:ring-2 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500 ${inputStyles}`}
+        className={`w-full min-w-0 rounded-xl border bg-white px-4 py-2.5 text-base text-gray-900 placeholder-gray-400 transition-colors focus:outline-none focus:ring-2 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 ${inputStyles}`}
       />
       {error && (
         <p

@@ -1,6 +1,14 @@
 import { useTheme } from '../../context/ThemeContext.jsx';
 
-function ThemeToggle() {
+/**
+ * Toggle button for switching between light and dark themes.
+ *
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.compact=false] - When true, shows icon only (no label text).
+ * @param {string} [props.className=''] - Additional CSS classes for the button.
+ * @returns {import('react').JSX.Element}
+ */
+function ThemeToggle({ compact = false, className = '' }) {
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -8,11 +16,13 @@ function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-      className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-900"
+      className={`inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-offset-gray-900 ${
+        compact ? 'p-2' : 'px-4 py-2'
+      } ${className}`}
     >
       {theme === 'light' ? (
         <svg
-          className="h-5 w-5"
+          className="h-5 w-5 shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -27,7 +37,7 @@ function ThemeToggle() {
         </svg>
       ) : (
         <svg
-          className="h-5 w-5"
+          className="h-5 w-5 shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -41,7 +51,7 @@ function ThemeToggle() {
           />
         </svg>
       )}
-      {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+      {!compact && (theme === 'light' ? 'Dark Mode' : 'Light Mode')}
     </button>
   );
 }
