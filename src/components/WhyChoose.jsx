@@ -1,43 +1,57 @@
+import {
+  Sparkles,
+  Home,
+  Wallet,
+  Map,
+} from 'lucide-react';
 import SectionHeader from './SectionHeader.jsx';
 import Card from './Card.jsx';
 
-const reasons = [
+const features = [
   {
-    title: 'AI Travel Planning',
+    title: 'AI Trip Planner',
     description:
-      'Intelligent algorithms craft personalized itineraries that match your pace, interests, and commitment to sustainable travel.',
+      'Describe your dream trip and let AI craft day-by-day itineraries tailored to your interests, pace, and eco preferences.',
+    icon: <Sparkles className="h-6 w-6" />,
   },
   {
-    title: 'Budget Estimation',
+    title: 'Smart Homestay Finder',
     description:
-      'Get clear cost breakdowns and compare eco-friendly options so you can plan confidently without overspending.',
+      'Discover authentic, community-run homestays that immerse you in local culture while supporting families directly.',
+    icon: <Home className="h-6 w-6" />,
   },
   {
-    title: 'Homestay Discovery',
+    title: 'Budget Optimizer',
     description:
-      'Find authentic, community-run homestays that immerse you in local culture while supporting families directly.',
+      'Get intelligent cost breakdowns and compare sustainable options so you travel confidently without overspending.',
+    icon: <Wallet className="h-6 w-6" />,
   },
   {
-    title: 'Local Experience Recommendations',
+    title: 'Personalized Itinerary',
     description:
-      'Uncover hidden gems, cultural events, and off-the-beaten-path activities curated for mindful explorers.',
+      'Receive curated routes, activities, and hidden gems designed uniquely for you — updated as your plans evolve.',
+    icon: <Map className="h-6 w-6" />,
   },
 ];
 
 function WhyChoose() {
   return (
-    <section className="bg-gray-50 px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+    <section
+      id="features"
+      className="bg-gray-50 px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28 dark:bg-gray-950"
+    >
       <div className="mx-auto w-full max-w-6xl min-w-0">
         <SectionHeader
-          title="Why Choose TravelGenie AI"
-          subtitle="Smart tools built for travelers who want unforgettable adventures and a positive impact on the planet."
+          title="Everything you need to travel smarter"
+          subtitle="Powerful AI tools designed for mindful explorers who want unforgettable adventures without the planning stress."
         />
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
-          {reasons.map((reason) => (
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
+          {features.map((feature) => (
             <Card
-              key={reason.title}
-              title={reason.title}
-              description={reason.description}
+              key={feature.title}
+              title={feature.title}
+              description={feature.description}
+              icon={feature.icon}
             />
           ))}
         </div>

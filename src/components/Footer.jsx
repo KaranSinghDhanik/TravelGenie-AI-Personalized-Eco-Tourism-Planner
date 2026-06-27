@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 
 const quickLinks = [
   { label: 'Home', path: '/' },
+  { label: 'AI Planner', path: '/ai-planner' },
+  { label: 'My Trips', path: '/my-trips' },
   { label: 'About', path: '/about' },
-  { label: 'Dashboard', path: '/dashboard' },
-  { label: 'UI Showcase', path: '/ui-showcase' },
   { label: 'Login', path: '/login' },
 ];
 
@@ -12,29 +12,30 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-emerald-800/30 bg-emerald-900 dark:border-gray-800 dark:bg-gray-950">
-      <div className="mx-auto max-w-6xl min-w-0 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+    <footer className="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
+      <div className="mx-auto max-w-6xl min-w-0 px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
           <div className="min-w-0">
-            <p className="text-lg font-bold text-emerald-50 dark:text-white">
-              TravelGenie AI
+            <p className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+              TravelGenie{' '}
+              <span className="text-emerald-600 dark:text-emerald-400">AI</span>
             </p>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-emerald-200/80 dark:text-gray-400">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-600 dark:text-gray-400">
               AI-powered eco-tourism planning for travelers who want smarter
-              itineraries and a lighter footprint.
+              itineraries, authentic stays, and a lighter footprint.
             </p>
           </div>
 
           <div className="min-w-0">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-emerald-100 dark:text-gray-200">
-              Quick Links
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+              Explore
             </h3>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-5 space-y-3">
               {quickLinks.map(({ label, path }) => (
-                <li key={path}>
+                <li key={`${label}-${path}`}>
                   <Link
                     to={path}
-                    className="text-sm text-emerald-200/80 transition-colors hover:text-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400"
+                    className="text-sm text-gray-600 transition-colors duration-200 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400"
                   >
                     {label}
                   </Link>
@@ -44,10 +45,10 @@ function Footer() {
           </div>
 
           <div className="min-w-0">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-emerald-100 dark:text-gray-200">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
               Contact
             </h3>
-            <ul className="mt-4 space-y-2 text-sm text-emerald-200/80 dark:text-gray-400">
+            <ul className="mt-5 space-y-3 text-sm text-gray-600 dark:text-gray-400">
               <li>hello@travelgenie.ai</li>
               <li>+1 (555) 000-0000</li>
               <li>San Francisco, CA</li>
@@ -55,8 +56,8 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-emerald-800/40 pt-8 text-center dark:border-gray-800 sm:text-left">
-          <p className="text-sm text-emerald-200/70 dark:text-gray-500">
+        <div className="mt-12 border-t border-gray-200 pt-8 dark:border-gray-800">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-500 sm:text-left">
             &copy; {year} TravelGenie AI. All rights reserved.
           </p>
         </div>

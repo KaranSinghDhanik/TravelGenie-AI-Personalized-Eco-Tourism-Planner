@@ -6,6 +6,7 @@
  * @param {'sm' | 'md' | 'lg'} [props.size='md'] - Button size.
  * @param {boolean} [props.disabled=false] - Disables the button when true.
  * @param {() => void} [props.onClick] - Click event handler.
+ * @param {import('react').ButtonHTMLAttributes<HTMLButtonElement>['type']} [props.type='button'] - Button type attribute.
  * @param {import('react').ReactNode} props.children - Button label or content.
  * @returns {import('react').JSX.Element}
  */
@@ -14,6 +15,7 @@ function Button({
   size = 'md',
   disabled = false,
   onClick,
+  type = 'button',
   children,
 }) {
   const baseStyles =
@@ -36,7 +38,7 @@ function Button({
 
   return (
     <button
-      type="button"
+      type={type}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]}`}
       disabled={disabled}
       onClick={onClick}

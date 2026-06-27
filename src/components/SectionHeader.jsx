@@ -1,11 +1,11 @@
 function SectionHeader({ title, subtitle }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
+      <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-base leading-relaxed text-gray-600 sm:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg">
           {subtitle}
         </p>
       )}
