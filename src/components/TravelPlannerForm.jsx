@@ -22,10 +22,11 @@ const styleOptions = [
  * Travel planning form for the AI Planner page.
  *
  * @param {Object} props - Component props.
- * @param {() => void} [props.onGenerate] - Callback when Generate Itinerary is clicked.
+ * @param {(form: object) => void | Promise<void>} [props.onGenerate] - Callback with form values when Generate Itinerary is clicked.
+ * @param {boolean} [props.isSubmitting=false] - Disables submit while a request is in progress.
  * @returns {import('react').JSX.Element}
  */
-function TravelPlannerForm({ onGenerate }) {
+function TravelPlannerForm({ onGenerate, isSubmitting = false }) {
   const [form, setForm] = useState({
     destination: 'Kerala, India',
     budget: '45000',
@@ -58,7 +59,7 @@ function TravelPlannerForm({ onGenerate }) {
         className="space-y-5"
         onSubmit={(e) => {
           e.preventDefault();
-          onGenerate?.();
+          onGenerate?.(form);
         }}
       >
         <Input
@@ -101,8 +102,8 @@ function TravelPlannerForm({ onGenerate }) {
           onChange={update('style')}
           options={styleOptions}
         />
-        <Button type="submit" size="lg">
-          Generate Itinerary
+        <Button type="submit" size="lg" disabled={isSubmitting}>
+          {isSubmitting ? 'Creating Trip...' : 'Generate Itinerary'}
         </Button>
       </form>
     </div>
