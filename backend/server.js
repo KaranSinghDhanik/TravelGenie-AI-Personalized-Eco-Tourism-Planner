@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 import connectDB from "./config/db.js";
+import tripRoutes from "./routes/tripRoutes.js";
 
 const app = express();
 
@@ -19,6 +20,9 @@ app.get("/", (req, res) => {
     message: "TravelGenie AI Backend Running",
   });
 });
+
+// Trip Management Routes
+app.use("/api/trips", tripRoutes);
 
 // Start Server
 const startServer = async () => {
