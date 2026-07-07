@@ -83,6 +83,24 @@ TravelGenie-AI/
 
 ---
 
+## Database Schema
+
+TravelGenie AI uses **MongoDB Atlas** as its primary database and **Mongoose** as the ODM (Object Document Mapper). MongoDB was chosen because of its flexible document-based schema, making it ideal for storing travel plans, user preferences, and future AI-generated itinerary data.
+
+The current implementation is centered around the **Trip** model, which stores destination details, travel dates, budget, travel style, interests, trip status, and timestamps.
+
+![TravelGenie AI Database Schema](./screenshots/travelgenie-database-schema.png)
+
+### Why MongoDB?
+
+- Flexible document-oriented database suitable for evolving travel data.
+- Easy integration with Node.js using Mongoose.
+- Cloud-hosted on MongoDB Atlas with a free development tier.
+- No complex schema migrations required for future AI features.
+- Well-suited for MERN stack applications.
+
+---
+
 ## Installation
 
 ### 1. Clone the repository
