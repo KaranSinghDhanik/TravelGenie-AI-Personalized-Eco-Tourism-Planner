@@ -119,7 +119,7 @@ export async function createTrip(req, res) {
       travelers: Number(req.body.travelers),
       travelStyle: req.body.travelStyle,
       interests: req.body.interests || [],
-      status: req.body.status || "Draft",
+      status: req.body.status || "Planning",
       estimatedCost: req.body.estimatedCost ?? 0,
       generatedItinerary: req.body.generatedItinerary ?? "",
       recommendedHomestays: req.body.recommendedHomestays || [],

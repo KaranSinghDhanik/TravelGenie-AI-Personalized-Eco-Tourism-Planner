@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const TRAVEL_STYLES = ["Budget", "Luxury", "Adventure", "Family", "Solo"];
-const TRIP_STATUSES = ["Draft", "Upcoming", "Completed", "Cancelled"];
+const TRIP_STATUSES = ["Planning", "Completed"];
 
 const tripSchema = new mongoose.Schema(
   {
@@ -45,7 +45,7 @@ const tripSchema = new mongoose.Schema(
         values: TRIP_STATUSES,
         message: `Status must be one of: ${TRIP_STATUSES.join(", ")}`,
       },
-      default: "Draft",
+      default: "Planning",
     },
     // AI-ready fields (populated by future Gemini integration)
     estimatedCost: {
