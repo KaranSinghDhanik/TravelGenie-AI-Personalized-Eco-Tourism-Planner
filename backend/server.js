@@ -4,6 +4,7 @@ import cors from "cors";
 
 import connectDB from "./config/db.js";
 import tripRoutes from "./routes/tripRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
@@ -23,6 +24,9 @@ app.get("/", (req, res) => {
 
 // Trip Management Routes
 app.use("/api/trips", tripRoutes);
+
+// Authentication Routes
+app.use("/api/auth", authRoutes);
 
 // Start Server
 const startServer = async () => {
