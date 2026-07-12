@@ -5,20 +5,43 @@ import Dashboard from './pages/Dashboard.jsx';
 import AIPlanner from './pages/AIPlanner.jsx';
 import MyTrips from './pages/MyTrips.jsx';
 import Login from './pages/Login.jsx';
-import UIShowcase from './pages/UIShowcase.jsx';
 import Register from './pages/Register.jsx';
+import UIShowcase from './pages/UIShowcase.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/ai-planner" element={<AIPlanner />} />
-      <Route path="/my-trips" element={<MyTrips />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/ui-showcase" element={<UIShowcase />} />
-      <Route path="/register" element={<Register />} />
+      
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai-planner"
+        element={
+          <ProtectedRoute>
+            <AIPlanner />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-trips"
+        element={
+          <ProtectedRoute>
+            <MyTrips />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
