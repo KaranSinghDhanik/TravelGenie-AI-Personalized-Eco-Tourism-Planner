@@ -112,6 +112,7 @@ export async function createTrip(req, res) {
     }
 
     const trip = await Trip.create({
+      user: req.user.id,
       destination: String(req.body.destination).trim(),
       startDate: req.body.startDate,
       endDate: req.body.endDate,
@@ -137,7 +138,7 @@ export async function createTrip(req, res) {
  */
 export async function getAllTrips(req, res) {
   try {
-    const trips = await Trip.find().sort({ createdAt: -1 });
+    const trips = await Trip.find({ user: req.user.id }).sort({ createdAt: -1 });
 
     return successResponse(res, 200, "Trips retrieved successfully", {
       count: trips.length,
@@ -159,10 +160,10 @@ export async function getTripById(req, res) {
       return errorResponse(res, 400, "Invalid trip ID format");
     }
 
-    const trip = await Trip.findById(id);
+    const trip = await Trip.findOne({ _id: id, user: req.user.id });
 
     if (!trip) {
-      return errorResponse(res, 404, "Trip not found");
+      return errorResponse(res, 404, "Trip not found or access denied.");
     }
 
     return successResponse(res, 200, "Trip retrieved successfully", { trip });
@@ -188,10 +189,10 @@ export async function updateTrip(req, res) {
       return errorResponse(res, 400, validationErrors.join(", "));
     }
 
-    const trip = await Trip.findById(id);
+    const trip = await Trip.findOne({ _id: id, user: req.user.id });
 
     if (!trip) {
-      return errorResponse(res, 404, "Trip not found");
+      return errorResponse(res, 404, "Trip not found or access denied.");
     }
 
     const updatableFields = [
@@ -234,10 +235,10 @@ export async function deleteTrip(req, res) {
       return errorResponse(res, 400, "Invalid trip ID format");
     }
 
-    const trip = await Trip.findByIdAndDelete(id);
+    const trip = await Trip.findOneAndDelete({ _id: id, user: req.user.id });
 
     if (!trip) {
-      return errorResponse(res, 404, "Trip not found");
+      return errorResponse(res, 404, "Trip not found or access denied.");
     }
 
     return successResponse(res, 200, "Trip deleted successfully", { trip });
@@ -258,6 +259,7 @@ export async function searchTrips(req, res) {
     }
 
     const trips = await Trip.find({
+      user: req.user.id,
       destination: { $regex: String(destination).trim(), $options: "i" },
     }).sort({ createdAt: -1 });
 
@@ -285,7 +287,7 @@ export async function filterTripsByStatus(req, res) {
       );
     }
 
-    const trips = await Trip.find({ status }).sort({ createdAt: -1 });
+    const trips = await Trip.find({ user: req.user.id, status }).sort({ createdAt: -1 });
 
     return successResponse(res, 200, `Trips with status '${status}' retrieved successfully`, {
       count: trips.length,

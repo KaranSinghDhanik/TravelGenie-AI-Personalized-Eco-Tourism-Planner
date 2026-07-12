@@ -12,6 +12,7 @@ import PageLayout from '../components/PageLayout.jsx';
 import StatCard from '../components/StatCard.jsx';
 import TripCard from '../components/TripCard.jsx';
 import Card from '../components/Card.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 const recentTrips = [
   {
@@ -62,6 +63,8 @@ const activityTimeline = [
 ];
 
 function Dashboard() {
+  const { user } = useAuth();
+
   return (
     <PageLayout>
       <div className="mx-auto w-full min-w-0 max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
@@ -70,7 +73,7 @@ function Dashboard() {
             Dashboard
           </p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            Welcome back!
+            Welcome back, {user?.name || 'Traveler'}!
           </h1>
           <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
             Here&apos;s an overview of your travel planning activity.

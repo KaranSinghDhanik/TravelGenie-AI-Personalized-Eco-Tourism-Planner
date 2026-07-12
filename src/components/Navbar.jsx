@@ -1,14 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import ThemeToggle from './ui/ThemeToggle.jsx';
-
-const navLinks = [
-  { label: 'Home', path: '/', end: true },
-  { label: 'AI Planner', path: '/ai-planner', end: false },
-  { label: 'My Trips', path: '/my-trips', end: false },
-  { label: 'About', path: '/about', end: false },
-  { label: 'Login', path: '/login', end: false },
-];
+import { useAuth } from '../context/AuthContext.jsx';
 
 function navLinkClass({ isActive }) {
   return [
@@ -30,8 +23,22 @@ function mobileNavLinkClass({ isActive }) {
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
 
   const closeMenu = () => setIsOpen(false);
+
+  const activeLinks = [
+    { label: 'Home', path: '/', end: true },
+    { label: 'AI Planner', path: '/ai-planner', end: false },
+    { label: 'My Trips', path: '/my-trips', end: false },
+    { label: 'About', path: '/about', end: false },
+  ];
+
+  if (isAuthenticated) {
+    activeLinks.push({ label: 'Dashboard', path: '/dashboard', end: false });
+  } else {
+    activeLinks.push({ label: 'Login', path: '/login', end: false });
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200/60 bg-white/75 shadow-sm shadow-gray-900/5 backdrop-blur-xl dark:border-gray-800/60 dark:bg-gray-900/75 dark:shadow-black/10">
@@ -81,13 +88,23 @@ function Navbar() {
         </div>
 
         <ul className="hidden min-w-0 items-center gap-1 md:flex lg:gap-1.5">
-          {navLinks.map(({ label, path, end }) => (
+          {activeLinks.map(({ label, path, end }) => (
             <li key={`${label}-${path}`}>
               <NavLink to={path} className={navLinkClass} end={end}>
                 {label}
               </NavLink>
             </li>
           ))}
+          {isAuthenticated && (
+            <li>
+              <button
+                onClick={logout}
+                className="relative rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/60 cursor-pointer"
+              >
+                Logout
+              </button>
+            </li>
+          )}
           <li className="ml-2 pl-2">
             <ThemeToggle />
           </li>
@@ -97,7 +114,7 @@ function Navbar() {
       {isOpen && (
         <div className="border-t border-gray-200/60 bg-white/90 px-4 py-4 backdrop-blur-xl dark:border-gray-800/60 dark:bg-gray-900/90 md:hidden">
           <ul className="space-y-1">
-            {navLinks.map(({ label, path, end }) => (
+            {activeLinks.map(({ label, path, end }) => (
               <li key={`${label}-${path}-mobile`}>
                 <NavLink
                   to={path}
@@ -109,6 +126,19 @@ function Navbar() {
                 </NavLink>
               </li>
             ))}
+            {isAuthenticated && (
+              <li>
+                <button
+                  onClick={() => {
+                    logout();
+                    closeMenu();
+                  }}
+                  className="w-full text-left block rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/30 cursor-pointer"
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       )}

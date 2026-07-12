@@ -6,6 +6,7 @@ import AIPlanner from './pages/AIPlanner.jsx';
 import MyTrips from './pages/MyTrips.jsx';
 import Login from './pages/Login.jsx';
 import UIShowcase from './pages/UIShowcase.jsx';
+import Register from './pages/Register.jsx';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/my-trips" element={<MyTrips />} />
       <Route path="/login" element={<Login />} />
       <Route path="/ui-showcase" element={<UIShowcase />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 }

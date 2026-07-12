@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, Wallet, Leaf } from 'lucide-react';
+import { Sparkles, MapPin, Leaf } from 'lucide-react';
 import PageLayout from '../components/PageLayout.jsx';
 import { Input, Button, Toast, showSuccess, showError } from '../components/ui/index.js';
-import { useAuth } from '../context/AuthContext.jsx';
-import { loginUser } from '../services/authService.js';
+import { registerUser } from '../services/authService.js';
 
 const features = [
   {
@@ -12,21 +11,22 @@ const features = [
     text: 'AI-powered itinerary generation',
   },
   {
-    icon: <Wallet className="h-5 w-5" />,
-    text: 'Budget optimization',
+    icon: <MapPin className="h-5 w-5" />,
+    text: 'Personalized eco-travel planning',
   },
   {
     icon: <Leaf className="h-5 w-5" />,
-    text: 'Eco-friendly travel recommendations',
+    text: 'Sustainable destination recommendations',
   },
 ];
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const [form, setForm] = useState({
+    name: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,23 +36,22 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.email.trim() || !form.password) {
-      showError('Please fill in all fields.');
+    if (form.password !== form.confirmPassword) {
+      showError('Passwords do not match.');
       return;
     }
 
     try {
       setIsSubmitting(true);
-      const res = await loginUser({
+      await registerUser({
+        name: form.name.trim(),
         email: form.email.trim(),
         password: form.password,
       });
-      
-      login(res.token, res.user);
-      showSuccess('Signed in successfully!');
-      navigate('/dashboard');
+      showSuccess('Account created successfully! Please sign in.');
+      navigate('/login');
     } catch (err) {
-      showError(err.message || 'Login failed. Please try again.');
+      showError(err.message || 'Registration failed.');
     } finally {
       setIsSubmitting(false);
     }
@@ -68,11 +67,11 @@ function Login() {
             <span className="text-emerald-600 dark:text-emerald-400">AI</span>
           </p>
           <h1 className="mt-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            Welcome Back
+            Create Your Account
           </h1>
           <p className="mt-4 max-w-md text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg">
-            Sign in to access your saved itineraries, trip history, and
-            AI-powered travel recommendations — all in one place.
+            Join TravelGenie AI to save trips, track itineraries, and unlock
+            personalized eco-tourism planning.
           </p>
           <ul className="mt-8 space-y-4">
             {features.map((feature) => (
@@ -91,16 +90,20 @@ function Login() {
         <div className="min-w-0">
           <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl shadow-gray-900/5 dark:border-gray-700 dark:bg-gray-800 dark:shadow-black/20 sm:p-8">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-              Sign in to your account
+              Sign up for free
             </h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Start planning smarter, sustainable adventures today.
             </p>
 
-            <form
-              className="mt-8 space-y-5"
-              onSubmit={handleSubmit}
-            >
+            <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+              <Input
+                label="Full Name"
+                type="text"
+                placeholder="Your full name"
+                value={form.name}
+                onChange={update('name')}
+              />
               <Input
                 label="Email"
                 type="email"
@@ -111,37 +114,29 @@ function Login() {
               <Input
                 label="Password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Create a password"
                 value={form.password}
                 onChange={update('password')}
               />
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-900"
-                  />
-                  Remember Me
-                </label>
-                <button
-                  type="button"
-                  className="text-left text-sm font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 sm:text-right"
-                >
-                  Forgot Password?
-                </button>
-              </div>
+              <Input
+                label="Confirm Password"
+                type="password"
+                placeholder="Confirm your password"
+                value={form.confirmPassword}
+                onChange={update('confirmPassword')}
+              />
               <Button type="submit" size="lg" disabled={isSubmitting}>
-                {isSubmitting ? 'Signing In...' : 'Login'}
+                {isSubmitting ? 'Creating Account...' : 'Create Account'}
               </Button>
             </form>
 
             <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-              Don&apos;t have an account?{' '}
+              Already have an account?{' '}
               <Link
-                to="/register"
+                to="/login"
                 className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
               >
-                Create Account
+                Sign in
               </Link>
             </p>
           </div>
@@ -151,4 +146,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
