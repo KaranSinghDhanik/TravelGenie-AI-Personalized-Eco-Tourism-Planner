@@ -16,8 +16,15 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: function() {
+        return this.authProvider === "local";
+      },
       select: false,
+    },
+    authProvider: {
+      type: String,
+      enum: ["local", "github"],
+      default: "local",
     },
   },
   {
