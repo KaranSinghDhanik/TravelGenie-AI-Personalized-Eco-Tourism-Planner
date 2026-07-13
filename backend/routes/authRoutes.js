@@ -1,34 +1,18 @@
 import express from "express";
-import rateLimit from "express-rate-limit";
 import passport from "passport";
 import { register, login, getMe } from "../controllers/authController.js";
 import { generateToken, protect } from "../middleware/authMiddleware.js";
+import { strictAuthLimiter } from "../middleware/rateLimiter.js";
 import {
   registerValidation,
   loginValidation,
-  validateRequest,
-} from "../validators/authValidator.js";
+  validate,
+} from "../middleware/validation.js";
 
 const router = express.Router();
 
-/**
- * Rate limiter for authentication routes to reduce brute-force attempts.
- */
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 50,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: {
-    success: false,
-    message: "Too many authentication attempts. Please try again later.",
-  },
-});
-
-router.use(authLimiter);
-
-router.post("/register", registerValidation, validateRequest, register);
-router.post("/login", loginValidation, validateRequest, login);
+router.post("/register", strictAuthLimiter, registerValidation, validate, register);
+router.post("/login", strictAuthLimiter, loginValidation, validate, login);
 
 // GitHub OAuth routes
 router.get("/github", passport.authenticate("github", { scope: ["user:email"], session: false }));
