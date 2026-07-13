@@ -50,3 +50,19 @@ export async function loginUser(payload) {
 
   return parseAuthResponse(response);
 }
+
+/**
+ * Fetch currently logged in user's profile.
+ * @param {string} token
+ * @returns {Promise<{ success: boolean, user: object }>}
+ */
+export async function fetchCurrentUser(token) {
+  const response = await fetch(`${AUTH_BASE_URL}/me`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  return parseAuthResponse(response);
+}

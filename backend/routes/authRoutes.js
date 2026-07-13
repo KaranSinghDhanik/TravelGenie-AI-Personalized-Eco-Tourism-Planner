@@ -1,8 +1,8 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import passport from "passport";
-import { register, login } from "../controllers/authController.js";
-import { generateToken } from "../middleware/authMiddleware.js";
+import { register, login, getMe } from "../controllers/authController.js";
+import { generateToken, protect } from "../middleware/authMiddleware.js";
 import {
   registerValidation,
   loginValidation,
@@ -48,5 +48,8 @@ router.get(
     res.redirect(`${frontendUrl}/auth/success?token=${token}`);
   }
 );
+
+// Authenticated User Profile route
+router.get("/me", protect, getMe);
 
 export default router;

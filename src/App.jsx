@@ -7,6 +7,7 @@ import MyTrips from './pages/MyTrips.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import UIShowcase from './pages/UIShowcase.jsx';
+import AuthSuccess from './pages/AuthSuccess.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/ui-showcase" element={<UIShowcase />} />
+      <Route path="/auth/success" element={<AuthSuccess />} />
       
       <Route
         path="/dashboard"

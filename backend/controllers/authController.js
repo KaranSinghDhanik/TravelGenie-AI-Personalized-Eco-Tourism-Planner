@@ -104,3 +104,28 @@ export async function login(req, res) {
     });
   }
 }
+
+/**
+ * GET /api/auth/me
+ * Fetch the authenticated user's profile information.
+ */
+export async function getMe(req, res) {
+  try {
+    if (!req.user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      user: sanitizeUser(req.user),
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to fetch user profile",
+    });
+  }
+}
