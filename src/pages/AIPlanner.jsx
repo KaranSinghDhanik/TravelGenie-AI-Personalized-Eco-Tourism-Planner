@@ -16,9 +16,12 @@ import {
   mapTripToForm,
   validatePlannerForm,
 } from '../services/tripService.js';
+import { generateItinerary } from '../services/aiService.js';
 
 function AIPlanner() {
-  const [generated] = useState(true);
+  const [generatedItinerary, setGeneratedItinerary] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [plannerForm, setPlannerForm] = useState(null);
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -47,7 +50,7 @@ function AIPlanner() {
     fetchTrips();
   }, [fetchTrips]);
 
-  const handleCreate = async (form) => {
+  const handleGenerateItinerary = async (form) => {
     const validationErrors = validatePlannerForm(form);
     if (validationErrors.length > 0) {
       showError(validationErrors.join(', '));
@@ -55,13 +58,31 @@ function AIPlanner() {
     }
 
     try {
+      setIsGenerating(true);
+      setPlannerForm(form);
+      const itinerary = await generateItinerary(form);
+      setGeneratedItinerary(itinerary);
+      showSuccess('Itinerary generated successfully!');
+    } catch (err) {
+      showError(err.message || 'Failed to generate itinerary.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const handleSaveTrip = async () => {
+    if (!plannerForm) return;
+
+    try {
       setIsSubmitting(true);
-      const tripPayload = mapPlannerFormToTrip(form);
+      const tripPayload = mapPlannerFormToTrip(plannerForm);
       await createTrip(tripPayload);
-      showSuccess('Trip created successfully!');
+      showSuccess('Trip saved successfully!');
+      setGeneratedItinerary(null);
+      setPlannerForm(null);
       await fetchTrips();
     } catch (err) {
-      showError(err.message || 'Failed to create trip.');
+      showError(err.message || 'Failed to save trip.');
     } finally {
       setIsSubmitting(false);
     }
@@ -147,18 +168,22 @@ function AIPlanner() {
 
         <div className="mt-10 grid min-w-0 grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
           <TravelPlannerForm
-            onSubmit={handleCreate}
-            isSubmitting={isSubmitting}
-            submitLabel="Create Trip"
-            submittingLabel="Creating Trip..."
+            onSubmit={handleGenerateItinerary}
+            isSubmitting={isGenerating}
+            submitLabel="Generate Itinerary"
+            submittingLabel="Generating..."
           />
           <div className="min-w-0 space-y-8">
-            {generated ? (
-              <AiItineraryPreview />
+            {isGenerating ? (
+              <div className="flex min-h-[400px] items-center justify-center rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <Loader variant="spinner" size="md" label="Generating itinerary" />
+              </div>
+            ) : generatedItinerary ? (
+              <AiItineraryPreview itinerary={generatedItinerary} onSave={handleSaveTrip} />
             ) : (
               <div className="flex min-h-[400px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-8 dark:border-gray-700 dark:bg-gray-800/50">
                 <p className="text-center text-gray-500 dark:text-gray-400">
-                  Fill in your trip details and click Create Trip to see your
+                  Fill in your trip details and click Generate Itinerary to see your
                   AI-powered plan here.
                 </p>
               </div>

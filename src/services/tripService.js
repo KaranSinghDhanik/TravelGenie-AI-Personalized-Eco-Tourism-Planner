@@ -39,12 +39,30 @@ async function parseResponse(response) {
   return data.data;
 }
 
+function getAuthHeaders(includeContentType = true) {
+  const token = localStorage.getItem("travelgenie_token");
+
+  const headers = {};
+
+  if (includeContentType) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return headers;
+}
+
 /**
  * Fetch all trips from the backend.
  * @returns {Promise<{ count: number, trips: object[] }>}
  */
 export async function getTrips() {
-  const response = await fetch(BASE_URL);
+  const response = await fetch(BASE_URL, {
+    headers: getAuthHeaders(false)
+  });
   return parseResponse(response);
 }
 
@@ -56,7 +74,7 @@ export async function getTrips() {
 export async function createTrip(tripData) {
   const response = await fetch(BASE_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getAuthHeaders(),
     body: JSON.stringify(tripData),
   });
 
@@ -72,7 +90,7 @@ export async function createTrip(tripData) {
 export async function updateTrip(id, tripData) {
   const response = await fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getAuthHeaders(),
     body: JSON.stringify(tripData),
   });
 
@@ -87,6 +105,7 @@ export async function updateTrip(id, tripData) {
 export async function deleteTrip(id) {
   const response = await fetch(`${BASE_URL}/${id}`, {
     method: 'DELETE',
+    headers: getAuthHeaders(false)
   });
 
   return parseResponse(response);
