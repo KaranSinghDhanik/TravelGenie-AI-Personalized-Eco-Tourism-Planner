@@ -1,297 +1,207 @@
-# TravelGenie AI – Personalized Eco-Tourism Planner
+# 🌌 TravelGenie AI – Personalized Eco-Tourism Planner
 
-TravelGenie AI is a full-stack MERN application that helps users plan eco-friendly trips with a modern, responsive interface. It includes robust authentication via user registration, login, JWT credentials, and GitHub OAuth login. Security is enforced with protected frontend routes, protected backend APIs, and user-specific trip management. The application also integrates API request validation and rate limiting on critical authentication endpoints to safeguard user data.
-
----
-
-## Project Status
-
-- **Week 6 (Completed)**: Implemented secure User Authentication (Local signup/login, GitHub OAuth), Route Protection, Rate Limiting, and Input Validation.
-- **Next Milestone**: AI itinerary generation using Google Gemini API to build personalized day-by-day itineraries, eco-friendly accommodation recommendations, and custom packing suggestions.
+TravelGenie AI is a professional full-stack MERN application that enables users to discover, plan, and manage personalized, eco-friendly travel itineraries. By combining user preferences with dynamic prompt engineering and AI endpoints, TravelGenie AI delivers detailed daily plans, local attractions, weather guidelines, and curated sustainable homestay recommendations to promote responsible tourism.
 
 ---
 
-## Features
+## 🚀 Features
 
-### Authentication & Security
-- **User Registration**: Custom email and password signup.
-- **User Login**: Traditional email and password authentications.
-- **JWT Authentication**: Secured session management with JSON Web Tokens.
-- **GitHub OAuth Login**: Integrated social login option via Passport.js.
-- **Authentication Persistence**: Session persistence utilizing local storage context.
-- **Protected Frontend Routes**: React Router checks guarding dashboard and trip screens.
-- **Protected Backend Routes**: JWT middleware checking authorization headers.
-- **User-owned Trips**: Database separation ensuring users only access their own trip documents.
-- **Password Hashing**: Secure storage of passwords using bcrypt hashing.
-- **Rate Limiting**: Custom security limits to protect auth routes from brute-force.
-- **Input Validation**: Express-validator middleware validating correct payload structures.
-
-### Trip Management
-- **Create Trips**: Custom travel detail configurations.
-- **View Trips**: Dedicated screens for viewing saved lists and detailed routes.
-- **Update Trips**: Dynamic adjustments to existing trip plans.
-- **Delete Trips**: Remove trip entries from account.
-- **Search Trips**: Search saved trips by destination queries.
-- **Filter Trips by Status**: Separate dashboard lists by Draft, Active, and Completed statuses.
-
-### User Experience
-- **Responsive UI**: Sleek mobile-first design built with Tailwind CSS.
-- **AI Planner Interface**: Intuitive forms for drafting trip preferences.
-- **Dashboard**: Centralized hub presenting user profile and trip overviews.
-- **Dark Mode**: Toggleable dark mode interface.
-
-### Backend
-- **RESTful Express API**: Organized routing and controllers structure.
-- **MongoDB Atlas**: Robust cloud storage for database documents.
-- **Mongoose ODM**: Clean schema modeling and database queries.
+- **🔐 JWT Authentication**: Secure user registration, password hashing (bcrypt), and session tokens stored in local storage.
+- **🛡️ Protected Routes**: React Router route guards on the frontend and custom authorization middleware checks on the backend API.
+- **🤖 AI-Powered Itineraries**: Instant generation of structured travel itineraries based on destination, budget, duration, interests, and style.
+- **🌱 Sustainable Focus**: Automated recommendations for certified eco-homestays and local green travel guidelines.
+- **📅 Dynamic Itinerary Preview**: Interactive side-by-side rendering of days, schedules, mapping data, and packing checklists.
+- **💾 Trip Management (CRUD)**: Save generated itineraries directly to MongoDB Atlas and view, edit, update status (Planning/Completed), or delete saved trips.
+- **📱 Responsive UI/UX**: Sleek visual styling, fluid layouts, and complete dark mode support using Tailwind CSS.
+- **🔔 Real-time Notifications**: Dynamic toast alerts for success actions, form validation warnings, and API error reports.
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
-- React
-- Vite
-- Tailwind CSS
-- React Router
+- **React 19** – Component-based user interface architecture.
+- **Vite** – Fast build tooling and hot module replacement.
+- **Tailwind CSS** – Utility-first premium styling framework.
+- **React Router Dom** – Declarative routing and protection guards.
+- **Axios & Fetch** – HTTP requests with bearer authorization middleware.
 
 ### Backend
-- Node.js
-- Express.js
-- Passport.js
-- JWT (jsonwebtoken)
-- bcrypt
-- express-session
-- express-validator
-- express-rate-limit
+- **Node.js & Express.js** – Structured RESTful API router and MVC design.
+- **MongoDB Atlas & Mongoose** – Flexible document databases and schema modeling.
+- **JWT (json-web-token)** – Secure stateless token authorization.
 
-### Database
-- MongoDB Atlas
-- Mongoose
-
-### Testing
-- Postman
-
-### Version Control
-- Git
-- GitHub
+### AI Integration
+- **Groq API & Gemini Models** – Next-generation LLM APIs for structured JSON responses.
+- **Prompt Engineering** – Dedicated prompt builder enforcing strict eco-friendly parameters.
 
 ---
 
-## Folder Structure
+## 🔄 AI Workflow
+
+The flow below represents how travel preferences are transformed into actionable itineraries:
+
+```
+User Input
+    ↓
+TravelPlannerForm
+    ↓
+Backend API
+    ↓
+Prompt Builder
+    ↓
+Groq AI
+    ↓
+Structured JSON Response
+    ↓
+AI Itinerary Preview
+    ↓
+Save Trip
+    ↓
+MongoDB
+```
+
+---
+
+## 📂 Project Structure
 
 ```
 TravelGenie-AI/
 │
-├── backend/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   ├── utils/
-│   ├── validators/
-│   ├── server.js
-│   ├── package.json
-│   └── .env.example
+├── backend/                  # Node.js & Express server
+│   ├── config/              # Configuration files (DB, passports, etc.)
+│   ├── controllers/         # API controllers handling business logic
+│   ├── middleware/          # Protected route checks and rate limiters
+│   ├── models/              # Mongoose data schemas
+│   ├── routes/              # Express endpoint routers
+│   ├── services/            # Axios helper services (AI API connectors)
+│   └── utils/               # Prompt builders and formatting helpers
 │
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── context/
-│   ├── services/
-│   ├── App.jsx
-│   └── main.jsx
-│
-├── public/
-│   ├── screenshots/
-│   └── ...
-├── package.json
-└── README.md
+└── src/                      # Vite + React Frontend
+    ├── components/          # Reusable UI elements and previews
+    ├── pages/               # Routed pages (AI Planner, Dashboard, Auth)
+    ├── services/            # API services (trip management, AI client)
+    └── context/             # Authentication & UI states
 ```
 
 ---
 
-## Database Schema
+## 💻 Installation
 
-TravelGenie AI uses **MongoDB Atlas** as its primary database and **Mongoose** as the ODM (Object Document Mapper). MongoDB was chosen because of its flexible document-based schema, making it ideal for storing travel plans, user preferences, and future AI-generated itinerary data.
-
-The current implementation is centered around the **Trip** model, which stores destination details, travel dates, budget, travel style, interests, trip status, and timestamps.
-
-![TravelGenie AI Database Schema](./screenshots/travelgenie-database-schema.png)
-
-### Why MongoDB?
-
-- Flexible document-oriented database suitable for evolving travel data.
-- Easy integration with Node.js using Mongoose.
-- Cloud-hosted on MongoDB Atlas with a free development tier.
-- No complex schema migrations required for future AI features.
-- Well-suited for MERN stack applications.
-
----
-
-## Installation
-
-### 1. Clone the repository
-
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/TravelGenie-AI-Personalized-Eco-Tourism-Planner.git
+git clone https://github.com/KaranSinghDhanik/TravelGenie-AI-Personalized-Eco-Tourism-Planner.git
 cd TravelGenie-AI-Personalized-Eco-Tourism-Planner
 ```
 
-### 2. Install frontend dependencies
-
+### 2. Install Dependencies
 ```bash
+# Install frontend packages
 npm install
-```
 
-### 3. Install backend dependencies
-
-```bash
+# Install backend packages
 cd backend
 npm install
 cd ..
 ```
 
-### 4. Run the frontend
+### 3. Run the Project Locally
 
+**Start the Frontend App:**
 ```bash
 npm run dev
 ```
+*Frontend will be running at `http://localhost:5173`*
 
-The React app will be available at `http://localhost:5173`.
-
-### 5. Run the backend
-
+**Start the Backend Server:**
 ```bash
 cd backend
 npm run dev
 ```
-
-The API server will be available at `http://localhost:5000`.
+*Backend API server will be running at `http://localhost:5000`*
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
-Create a `backend/.env` file by copying the example file:
-
-```bash
-cp backend/.env.example backend/.env
-```
-
-| Variable               | Description                                           |
-| ---------------------- | ----------------------------------------------------- |
-| `PORT`                 | Port for the Express server (default: `5000`)         |
-| `MONGO_URI`            | MongoDB Atlas connection string                       |
-| `JWT_SECRET`           | Secret key used to sign and verify JSON Web Tokens    |
-| `SESSION_SECRET`       | Encryption key for session management                 |
-| `GITHUB_CLIENT_ID`     | Client ID for GitHub OAuth Application                |
-| `GITHUB_CLIENT_SECRET` | Client Secret for GitHub OAuth Application            |
-| `FRONTEND_URL`         | URL of the React frontend application                 |
-| `GEMINI_API_KEY`       | Google Gemini API key (reserved for future milestone) |
-
-Example `backend/.env`:
-
+### Backend Configuration (`backend/.env`)
+Create a `.env` file in the `backend/` folder and include the following variables:
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/travelgenie?retryWrites=true&w=majority
-JWT_SECRET=your_jwt_secret_key
-SESSION_SECRET=your_session_secret_key
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
-FRONTEND_URL=http://localhost:5173
-GEMINI_API_KEY=
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_signing_secret_key
+GROQ_API_KEY=your_groq_or_gemini_api_credentials
+```
+
+### Frontend Configuration (`.env`)
+Create a `.env` file in the root directory and configure the backend connection URL:
+```env
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
 
-## REST API Endpoints
+## 🔌 API Endpoints
 
-### Authentication APIs
+### Authentication
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Register a new user | No |
+| `POST` | `/api/auth/login` | Log in with credentials | No |
+| `GET` | `/api/auth/me` | Fetch active user profile | Yes |
 
-| Method | Endpoint                    | Description                                  |
-| ------ | --------------------------- | -------------------------------------------- |
-| POST   | `/api/auth/register`        | Register a new user account                  |
-| POST   | `/api/auth/login`           | Log in with email and password               |
-| GET    | `/api/auth/me`              | Fetch currently authenticated user's profile |
-| GET    | `/api/auth/github`          | Redirect to GitHub OAuth consent page        |
-| GET    | `/api/auth/github/callback` | Callback endpoint for GitHub authentication |
+### Trip Management
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `GET` | `/api/trips` | Fetch all saved trips for logged-in user | Yes |
+| `POST` | `/api/trips` | Save a new trip | Yes |
+| `PUT` | `/api/trips/:id` | Update trip details by ID | Yes |
+| `DELETE` | `/api/trips/:id` | Remove a trip by ID | Yes |
 
-### Trip APIs
-
-| Method | Endpoint                    | Description                          |
-| ------ | --------------------------- | ------------------------------------ |
-| POST   | `/api/trips`                | Create a new trip                    |
-| GET    | `/api/trips`                | Retrieve all trips for logged-in user|
-| GET    | `/api/trips/:id`            | Retrieve a specific trip by ID       |
-| PUT    | `/api/trips/:id`            | Update a specific trip by ID         |
-| DELETE | `/api/trips/:id`            | Delete a specific trip by ID         |
-| GET    | `/api/trips/search`         | Search user's trips by destination   |
-| GET    | `/api/trips/status/:status` | Filter user's trips by status        |
-
-**Health check:** `GET /` returns server status.
-
-**Search example:** `GET /api/trips/search?destination=Kerala`
-
-**Filter example:** `GET /api/trips/status/Draft`
+### AI Itinerary
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `POST` | `/api/ai/itinerary` | Generate AI travel plan | Yes |
 
 ---
 
-## Security Features
+## 📸 Screenshots
 
-To guarantee data integrity and protect resources, the following features have been integrated:
-- **JWT Authentication**: Custom middleware validates tokens in Authorization headers for secure session protection.
-- **GitHub OAuth**: Secure delegation using Passport strategy, requesting minimal scopes and fetching verified email addresses.
-- **Protected Routes**: Navigation-guard routes on the frontend (React Router) and API authorization on the backend (Express).
-- **User Ownership Authorization**: Access constraints ensuring users can query, view, update, or delete only their owned trip documents.
-- **Password Hashing**: One-way bcrypt hashing with a salt factor of 10 to protect user passwords in the database.
-- **Authentication Rate Limiting**: Built-in protection against brute-force attacks via a 5-request maximum threshold per 15-minute window for login/register actions.
-- **Request Validation**: Sanitization and validation of payload bodies via express-validator before controller execution.
+### Login Page
+![Login Page](./screenshots/login_page.png)
 
----
+### AI Planner Form
+![AI Planner Form](./screenshots/ai_planner_form.png)
 
-## Screenshots
+### AI Loading State
+![AI Loading State](./screenshots/ai_loading_state.png)
 
-> Add screenshots to a `/screenshots` folder and replace the placeholders below.
+### Generated Itinerary
+![Generated Itinerary](./screenshots/generated_itinerary.png)
 
-### Home Page
-
-![Home Page](./screenshots/home.png)
-
-### AI Planner
-
-![AI Planner](./screenshots/ai-planner.png)
-
-### My Recent Trips
-
-![My Recent Trips](./screenshots/recent-trips.png)
-
-### Backend API
-
-![Backend API](./screenshots/backend-api.png)
+### Saved Trips Dashboard
+![Saved Trips Dashboard](./screenshots/saved_trips_dashboard.png)
 
 ---
 
-## Future Improvements
+## 🔮 Future Enhancements
 
-- AI itinerary generation using Google Gemini API
-- Personalized eco-friendly recommendations
-- Smart budget predictions
-- Real-time weather integration
-- Interactive Maps integration
-- Packing checklist generation
-- Email itinerary export
-- Real-time trip collaboration
-- Multi-language support
+- 📄 **Export to PDF**: Allow users to download and print their generated eco-tourism plans.
+- 🗺️ **Google Maps Integration**: Visually map trip routes, attractions, and accommodations.
+- 🌦️ **Weather APIs**: Dynamic real-time weather alerts based on travel dates.
+- 🔄 **Itinerary Regeneration**: Single-click regeneration of specific days or events.
+- 🔗 **Social Sharing**: Share generated itinerary pages with friends and fellow travelers.
+- 📊 **Carbon Footprint Metrics**: Graphic visualizations of calculated travel footprints.
+- 📴 **Offline Access**: Progressive Web App (PWA) support to access plans in remote locations.
 
 ---
 
-## Author
+## 👥 Contributors
 
-**Karan Singh Dhanik**
+- **Karan Singh Dhanik** - *Summer Internship Program 2026* - Graphic Era University
 
-Graphic Era University
+---
 
-Summer Internship Program 2026
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
