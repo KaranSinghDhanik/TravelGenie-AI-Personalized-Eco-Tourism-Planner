@@ -1,3 +1,4 @@
+
 # 🌌 TravelGenie AI – Personalized Eco-Tourism Planner
 
 TravelGenie AI is a professional full-stack MERN application that enables users to discover, plan, and manage personalized, eco-friendly travel itineraries. By combining user preferences with dynamic prompt engineering and AI endpoints, TravelGenie AI delivers detailed daily plans, local attractions, weather guidelines, and curated sustainable homestay recommendations to promote responsible tourism.
