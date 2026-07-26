@@ -1,24 +1,24 @@
 
-# 🌌 TravelGenie AI – Personalized Eco-Tourism Planner
+# TravelGenie AI – Personalized Eco-Tourism Planner
 
 TravelGenie AI is a professional full-stack MERN application that enables users to discover, plan, and manage personalized, eco-friendly travel itineraries. By combining user preferences with dynamic prompt engineering and AI endpoints, TravelGenie AI delivers detailed daily plans, local attractions, weather guidelines, and curated sustainable homestay recommendations to promote responsible tourism.
 
 ---
 
-## 🚀 Features
+## Features
 
-- **🔐 JWT Authentication**: Secure user registration, password hashing (bcrypt), and session tokens stored in local storage.
-- **🛡️ Protected Routes**: React Router route guards on the frontend and custom authorization middleware checks on the backend API.
-- **🤖 AI-Powered Itineraries**: Instant generation of structured travel itineraries based on destination, budget, duration, interests, and style.
-- **🌱 Sustainable Focus**: Automated recommendations for certified eco-homestays and local green travel guidelines.
-- **📅 Dynamic Itinerary Preview**: Interactive side-by-side rendering of days, schedules, mapping data, and packing checklists.
-- **💾 Trip Management (CRUD)**: Save generated itineraries directly to MongoDB Atlas and view, edit, update status (Planning/Completed), or delete saved trips.
-- **📱 Responsive UI/UX**: Sleek visual styling, fluid layouts, and complete dark mode support using Tailwind CSS.
-- **🔔 Real-time Notifications**: Dynamic toast alerts for success actions, form validation warnings, and API error reports.
+- **JWT Authentication**: Secure user registration, password hashing (bcrypt), and session tokens stored in local storage.
+- **Protected Routes**: React Router route guards on the frontend and custom authorization middleware checks on the backend API.
+- **AI-Powered Itineraries**: Instant generation of structured travel itineraries based on destination, budget, duration, interests, and style.
+- **Sustainable Focus**: Automated recommendations for certified eco-homestays and local green travel guidelines.
+- **Dynamic Itinerary Preview**: Interactive side-by-side rendering of days, schedules, mapping data, and packing checklists.
+- **Trip Management (CRUD)**: Save generated itineraries directly to MongoDB Atlas and view, edit, update status (Planning/Completed), or delete saved trips.
+- **Responsive UI/UX**: Sleek visual styling, fluid layouts, and complete dark mode support using Tailwind CSS.
+- **Real-time Notifications**: Dynamic toast alerts for success actions, form validation warnings, and API error reports.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 19** – Component-based user interface architecture.
@@ -38,7 +38,7 @@ TravelGenie AI is a professional full-stack MERN application that enables users 
 
 ---
 
-## 🔄 AI Workflow
+## AI Workflow
 
 The flow below represents how travel preferences are transformed into actionable itineraries:
 
@@ -64,7 +64,7 @@ MongoDB
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 TravelGenie-AI/
@@ -87,7 +87,7 @@ TravelGenie-AI/
 
 ---
 
-## 💻 Installation
+## Installation
 
 ### 1. Clone the Repository
 ```bash
@@ -123,7 +123,7 @@ npm run dev
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 ### Backend Configuration (`backend/.env`)
 Create a `.env` file in the `backend/` folder and include the following variables:
@@ -142,7 +142,7 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 | Method | Endpoint | Description | Auth Required |
@@ -166,7 +166,7 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Login Page
 ![Login Page](./screenshots/login_page.png)
@@ -185,24 +185,24 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
-- 📄 **Export to PDF**: Allow users to download and print their generated eco-tourism plans.
-- 🗺️ **Google Maps Integration**: Visually map trip routes, attractions, and accommodations.
-- 🌦️ **Weather APIs**: Dynamic real-time weather alerts based on travel dates.
-- 🔄 **Itinerary Regeneration**: Single-click regeneration of specific days or events.
-- 🔗 **Social Sharing**: Share generated itinerary pages with friends and fellow travelers.
-- 📊 **Carbon Footprint Metrics**: Graphic visualizations of calculated travel footprints.
-- 📴 **Offline Access**: Progressive Web App (PWA) support to access plans in remote locations.
+- **Export to PDF**: Allow users to download and print their generated eco-tourism plans.
+- **Google Maps Integration**: Visually map trip routes, attractions, and accommodations.
+- **Weather APIs**: Dynamic real-time weather alerts based on travel dates.
+- **Itinerary Regeneration**: Single-click regeneration of specific days or events.
+- **Social Sharing**: Share generated itinerary pages with friends and fellow travelers.
+- **Carbon Footprint Metrics**: Graphic visualizations of calculated travel footprints.
+- **Offline Access**: Progressive Web App (PWA) support to access plans in remote locations.
 
 ---
 
-## 👥 Contributors
+## Contributors
 
 - **Karan Singh Dhanik** - *Summer Internship Program 2026* - Graphic Era University
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
