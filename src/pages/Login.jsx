@@ -151,7 +151,7 @@ function Login() {
               variant="secondary"
               size="lg"
               onClick={() => {
-                window.location.href = "http://localhost:5000/api/auth/github";
+                window.location.href =`${import.meta.env.VITE_API_URL}/auth/github`;
               }}
             >
               <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
