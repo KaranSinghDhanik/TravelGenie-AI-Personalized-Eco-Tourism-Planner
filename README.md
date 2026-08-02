@@ -5,6 +5,13 @@ TravelGenie AI is a professional full-stack MERN application that enables users 
 
 ---
 
+## Live Demo / Deployment
+
+- **Frontend (Vercel)**: [https://travel-genie-ai-personalized-eco-to.vercel.app](https://travel-genie-ai-personalized-eco-to.vercel.app)
+- **Backend (Render)**: [https://travelgenie-ai-backend.onrender.com](https://travelgenie-ai-backend.onrender.com)
+
+---
+
 ## Features
 
 - **JWT Authentication**: Secure user registration, password hashing (bcrypt), and session tokens stored in local storage.
@@ -112,14 +119,14 @@ cd ..
 ```bash
 npm run dev
 ```
-*Frontend will be running at `http://localhost:5173`*
+*Frontend will be running locally at the development URL `http://localhost:5173` (the deployed application uses the production URL `https://travel-genie-ai-personalized-eco-to.vercel.app`).*
 
 **Start the Backend Server:**
 ```bash
 cd backend
 npm run dev
 ```
-*Backend API server will be running at `http://localhost:5000`*
+*Backend API server will be running locally at the development URL `http://localhost:5000` (the deployed application uses the production URL `https://travelgenie-ai-backend.onrender.com`).*
 
 ---
 
@@ -135,14 +142,20 @@ GROQ_API_KEY=your_groq_or_gemini_api_credentials
 ```
 
 ### Frontend Configuration (`.env`)
-Create a `.env` file in the root directory and configure the backend connection URL:
+Create a `.env` file in the root directory and configure the backend connection URL (use the local backend URL for development, or the production backend URL for the deployed version):
 ```env
+# Local Development
 VITE_API_URL=http://localhost:5000/api
+
+# Production Deployment
+# VITE_API_URL=https://travelgenie-ai-backend.onrender.com/api
 ```
 
 ---
 
 ## API Endpoints
+
+In the production environment, the frontend communicates with the backend API hosted on Render at `https://travelgenie-ai-backend.onrender.com` instead of the local backend (`http://localhost:5000`).
 
 ### Authentication
 | Method | Endpoint | Description | Auth Required |
@@ -200,6 +213,14 @@ VITE_API_URL=http://localhost:5000/api
 ## Contributors
 
 - **Karan Singh Dhanik** - *Summer Internship Program 2026* - Graphic Era University
+
+---
+
+## Deployment
+
+- **Frontend**: Hosted on Vercel
+- **Backend**: Hosted on Render
+- **Database**: Hosted on MongoDB Atlas
 
 ---
 
