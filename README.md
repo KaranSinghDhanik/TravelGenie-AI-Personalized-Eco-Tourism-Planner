@@ -272,7 +272,7 @@ VITE_API_URL=https://travelgenie-ai-backend.onrender.com/api
 - **University**: Graphic Era University
 - **Program**: Summer Internship Program 2026
 - **GitHub**: [KaranSinghDhanik](https://github.com/KaranSinghDhanik)
-- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com) *(Placeholder)*
+- **LinkedIn**: [KaranSinghDhanik](https://www.linkedin.com/in/karan-singh-dhanik-553274335)
 
 ---
 
